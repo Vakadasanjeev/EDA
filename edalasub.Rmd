@@ -1,0 +1,232 @@
+---
+title: "eda"
+author: "Vinayak P Bhupal & Sanjeev VVS"
+date: '2022-06-26'
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+**IMPORTING THE GIVEN DATASETS FROM THE EXCEL AFTER DOWNLOADING IT INTO THE LOCAL SYSTEM**
+
+```{r}
+
+library(readxl)
+data<-read_excel("Desktop/edala1dts.xlsx")
+data
+```
+
+**SUMMARY OF THE IMPORTED DATASET**
+
+```{r}
+summary(data)
+```
+
+**structure of the dataset, usually used to examine the structue of the object and also returns the number of rows and columns**
+
+```{r}
+str(data)
+```
+
+**class(data) command is used to know the type of the object**
+
+```{r}
+class(data)
+```
+
+**as.facotr/as.character converts the current object data type into respective one**
+
+```{r}
+x<-as.factor(data$Liked)
+x
+class(x)
+y<-as.character(x)
+class(y)
+```
+
+    commands for displaying the columns as per mentioned in command
+
+**output based the column number mentioned in the command** *displaying just first column*
+
+```{r}
+data[1]
+```
+
+*displaying second columns column*
+
+```{r}
+data[2]
+```
+
+*displaying the first & second column separately with just five records*
+
+```{r}
+data[1:5,1]
+data[1:5,2]
+```
+
+**Prints all columns except first column**
+
+```{r}
+   data[-1];
+```
+
+**Prints total number of columns**
+
+```{r}
+   length(data)
+```
+
+**using max function to know the max value in the particular column** *1 is the maximum value in the column*
+
+```{r}
+max(data$Liked)
+```
+
+**The seq R function generates a sequence of numeric values.**
+
+```{r}
+   data[seq(2,length(data),5)]
+```
+
+**sort function returns the results sorted in ascending order. we can use a minus sign to get results in descending order**
+
+```{r}
+sort(data$Review)
+```
+
+order function in R returns the position of each element of its input in ascending or descending order.
+
+```{r}
+  order(data$Review)
+```
+
+**rank function will return a dataframe providing the rank of each element within a dataframe**
+
+```{r}
+rank(data$Review)
+```
+
+**the head and tail function gives the first and last few rows, the number of records displyed can also be expicitly specified by the argument n which indicates the number of records that need to be submitted**
+
+```{r}
+head(data)
+head(data, n=3)
+tail(data)
+tail(data,n=3)
+```
+
+**gives all the column names of data frame value**
+
+```{r}
+  names(data) 
+```
+
+**row names** *in this case the rows are classified by numbering which is choosen as the default row names*
+
+```{r}
+row.names(data)
+```
+
+**dimnames return both row and column names**
+
+```{r}
+dimnames(data)
+```
+
+**converting the dataframe into matrix and list using as.matrix/list functions**
+
+```{r}
+d1=as.matrix(data)
+d1
+d2=as.list(data)
+d2
+```
+
+**the quantile() function in R can be used to calculate sample quantiles of the dataset**
+
+```{r}
+quantile(data$Liked)
+```
+
+**to calculate the five-number summary in the R programming language, we use fivenum() function**
+
+```{r}
+fivenum(data$Liked)
+```
+
+**calculating quantiles at 20%,25%,50%,75% and 80%**
+
+```{r}
+quantile(data$Liked,c(0.2,0.25,0.5,0.75,0.8))
+```
+
+**cumulative min and max functions will have the following output**
+
+```{r}
+cummax(data$Liked)
+cummin(data$Liked)
+```
+
+**ggplot of the given column in datasets for visual representation** *geom function is used to visualize the distribution of a single continuous variable*
+
+```{r}
+library(ggplot2)
+ggplot(data,aes(x=Liked))+geom_histogram(fill="red",colour="black")
+  
+```
+
+**facet function is used to divide the entire dataset according to categorical variables**
+
+```{r}
+library(ggplot2)
+ggplot(data,aes(x=Liked))+geom_histogram(fill="red",colour="black")+facet_grid(Liked~.)
+  
+```
+
+**Loading library dplyr. and adding new column to the value data frame. we use mutate function to add new column**
+
+**new column is created using if else function where if liked is 1 then "good" is updated or its "bad"**
+
+```{r}
+  library(dplyr);
+temp=data %>% mutate(overall=if_else(Liked==1,"good","bad"))
+```
+
+**selecting a record based on the column values**
+
+```{r}
+data %>% filter(Review=="The fries were great too." & Liked==1)
+```
+
+**renaming the existing column name. for that we use rename function.**
+
+```{r}
+data %>% rename(Rating=Liked)
+```
+
+**visualization of points on line graph**
+
+```{r}
+ggplot(data,aes(x=Review,y=Liked))+geom_line()+geom_point()
+```
+
+```{r}
+ggplot(data,aes(x=Review, y=Liked))+geom_line()+geom_point()
+```
+
+**visualization of bar graph of values.**
+
+```{r}
+ggplot(data,aes(x=Review, y=Liked))+geom_col()
+```
+
+**visualization of bar graph of counts.**
+
+```{r echo=TRUE, warning=FALSE}
+ggplot(data,aes(x=Review))+geom_bar()
+
+```
+
+
