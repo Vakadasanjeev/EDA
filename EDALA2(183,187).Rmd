@@ -1,0 +1,93 @@
+---
+title: "EDA la2"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+  pdf_document: default
+date: '2022-07-03'
+---
+
+
+
+
+
+```{r}
+
+
+library(readxl)
+Restaurant_la <- read_excel("C:/Users/Admin/Desktop/Restaurant_la.xlsx")
+View(Restaurant_la)
+```
+
+
+
+**Visualizations of dataset in BAR Graph**
+```{r}
+library(ggplot2)
+ggplot(Restaurant_la,aes(x=Review))+geom_bar()
+```
+**Visualizations of dataset in BAR Graph**
+```{r}
+ggplot(Restaurant_la,aes(x=Liked))+geom_bar()
+```
+
+**Visualizations of dataset in histogram Graph**
+```{r}
+ggplot(Restaurant_la,aes(x=Liked))+geom_histogram()
+```
+**Visualizations of dataset in ScatterPlot**
+```{r}
+ggplot(Restaurant_la,aes(x=Review,y=Liked))+geom_point()
+```
+
+**Visualizations of dataset in Vilion Graph**
+```{r}
+ggplot(Restaurant_la,aes(x=Review,y=Liked))+geom_violin()
+```
+
+**Visualizations of dataset in Line Graph**
+```{r}
+ggplot(Restaurant_la,aes(x=Review,y=Liked))+geom_line()
+```
+**Visualizations of dataset in Poly_Freq Graph**
+```{r}
+ggplot(Restaurant_la,aes(x=Liked))+geom_freqpoly()
+```
+
+**Visualizations of dataset in Density Graph**
+```{r}
+ggplot(Restaurant_la,aes(x=Review,y=Liked))+geom_density()
+```
+**Density curves with facets**
+```{r}
+ggplot(Restaurant_la, aes(x = Liked)) +
+  geom_density() +
+  facet_grid(Liked ~ .)
+```
+**Density curves overlaid on histograms**
+```{r}
+ggplot(Restaurant_la, aes(x = Liked)) +
+  geom_histogram(binwidth = 200, fill = "cornsilk", colour = "grey60",
+                 size = .2) +
+  geom_density() +
+  facet_grid(Liked ~ .)
+```
+
+**#Making a Basic Box Plot**
+```{r}
+ggplot(Restaurant_la, aes(x = Review,y=Liked)) +  geom_boxplot()
+```
+**#Box plot with narrower boxes**
+```{r}
+ggplot(Restaurant_la, aes(x = Review, y = Liked)) +  geom_boxplot(width = .5)
+```
+
+**#Making Multiple Dot Plots **
+```{r}
+ggplot(Restaurant_la, aes(x = Review, y = Liked)) +
+  geom_dotplot(binaxis = "y", binwidth = .5, stackdir = "center")
+```
+
+
+
